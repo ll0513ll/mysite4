@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.min.css"rel="stylesheet" type="text/css">
 	<link href=" ${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 	<title>Mysite</title>
 </head>
@@ -24,7 +25,7 @@
 						메뉴는 사이트 소개, 방명록, 게시판이 있구요. JAVA 수업 + 데이터베이스 수업 + 웹프로그래밍 수업 배운 거 있는거 없는 거 다 합쳐서 만들어 놓은 사이트 입니다.
 						<br>
 						<br>
-						<a href="">방명록</a>에 글 남기기
+						<a href="${pageContext.request.contextPath}/guestbook/list">방명록</a>에 글 남기기
 						<br>
 					</p>
 				</div>

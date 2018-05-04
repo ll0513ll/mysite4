@@ -11,6 +11,14 @@
 	]]>
 </select>
 
+<select id="list2" parameterType="int" resultType = "com.javaex.vo.GuestVo">
+	<![CDATA[
+			select no, name, password,content,reg_date regDate
+			from guestbook 
+			where no=#{no}
+	]]>
+</select>
+
 <insert id="insert" parameterType="com.javaex.vo.GuestVo">
 	<![CDATA[
 	
@@ -26,6 +34,34 @@
 </insert>
 
 <delete id="delete" parameterType="com.javaex.vo.GuestVo">
+	<![CDATA[
+		
+		delete from guestbook 
+		where no=#{no} and 
+		password=#{password}
+	
+	]]>
+
+</delete>
+
+<insert id="insert2" parameterType="com.javaex.vo.GuestVo">
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+		select seq_guestbook_no.nextval from dual
+	</selectKey>
+	<![CDATA[
+	
+		insert into guestbook
+		values(#{no},
+			   #{name},
+			   #{password},
+			   #{content},
+			   sysdate
+									)
+	]]>
+</insert>
+
+<delete id="delete2" parameterType="Map">
+	
 	<![CDATA[
 		
 		delete from guestbook 

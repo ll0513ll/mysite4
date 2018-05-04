@@ -48,5 +48,12 @@ public class GuestController {
 		guestService.delete(guestVo);
 		return "redirect:/guestbook/list";
 	}
+	
+	@RequestMapping(value="/list-ajax", method = RequestMethod.GET)
+	public String ajaxList() {
+		
+		//System.out.println("list-ajax");
+		return "guestbook/ajax-list";
+	}
 
 }
