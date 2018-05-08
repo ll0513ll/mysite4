@@ -30,6 +30,35 @@
 
 </insert>
 
+<select id="selectAll" parameterType="map" resultType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			select rnum, no, title, hit, reg_date, user_no, name
+			from (select rownum rnum, no, title, hit, reg_date, user_no, name
+      			  from (select b.no, b.title, b.hit, b.reg_date, b.user_no, u.name
+               		    from board b, users u
+                        where b.user_no = u.no 
+        ]]>
+					<if test="kwd != null and kwd !=''">
+						and title like '%'|| #{kwd} ||'%'
+					</if> 
+        <![CDATA[
+            		    order by no desc) t_o
+                  ) t_or
+            where rnum > #{startRnum} and rnum <= #{endRnum}
+		 ]]>
+</select>
+
+<select id="totalCount" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*)
+			from board
+		]]>
+		<if test="_parameter  != null and _parameter !=''">
+			where title like '%'|| #{kwd} ||'%'
+		</if>
+</select>
+	
+
 <select id="view" parameterType="int" resultType="com.javaex.vo.BoardVo">
 	<![CDATA[
 		
@@ -40,6 +69,16 @@
 	]]>
 
 </select>
+
+<update id="hitup" parameterType="int">
+		
+		<![CDATA[
+				update board 
+				set hit=hit+1
+				where no=#{no}
+		]]>
+	
+	</update>
 
 <select id="search" parameterType="int" resultType="com.javaex.vo.BoardVo">
 	

@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,21 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping(value = "/list",method = RequestMethod.GET)
+	/*@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public String list(Model model) {
 		
 		List<BoardVo> list = boardService.getList();
 		model.addAttribute("allList",list);
+		System.out.println("list");
+		return "board/list";
+	}*/
+	
+	@RequestMapping(value="/list", method= {RequestMethod.GET,RequestMethod.POST})
+	public String list( @RequestParam( value="crtPage", required=false, defaultValue="1") Integer crtPage,
+			            @RequestParam( value="kwd", required=false, defaultValue="") String kwd,
+						Model model) {
+		Map<String, Object> bMap = boardService.getList(crtPage, kwd);
+		model.addAttribute("bMap", bMap);
 		System.out.println("list");
 		return "board/list";
 	}
@@ -39,6 +50,7 @@ public class BoardController {
 	public String add(@ModelAttribute BoardVo boardVo) {
 		
 		boardService.add(boardVo);
+	
 		return "redirect:/board/list";
 	}
 	
