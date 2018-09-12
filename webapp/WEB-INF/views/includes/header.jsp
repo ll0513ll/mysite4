@@ -11,6 +11,7 @@
 
 	<div id="header">
 		<h1>MySite</h1>
+		
 		<ul>
 			<c:choose>
 				<c:when test="${authUser eq null }">
